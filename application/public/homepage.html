@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <script defer src="/public/javascripts/frontendjs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <title>Home Page</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <headerhomepage>
+                ▐ Welcome
+            </headerhomepage>
+        </h1>
+    </header>
+
+    <div class="topnav">
+        <a class="active" href="index">Home</a>
+        <a href="/about" id="about-button">About</a>
+        <a href="/login" id="login-button">Log In</a>
+        <a href="/registration" id="register-button">Register</a>
+        <a href="/postimage" id="upload-button">Upload</a>
+        <a href="/profile" id="profile-button">Profile</a>
+        <div id="text-bar-icon">
+            <input type="button" id="clickSearch" onClick="runSearch()">button text</input>  
+            <i id="sicon" class="fas fa-search nav-items"></i>
+        </div>
+        <input id="search" name="search-text" type="text" />
+        </form>
+      </div>
+      
+      
+    <br>
+    <br>
+  
+    <homepagedesc>
+        placeholdername.com is a photo sharing website where you can create
+        an account to store images. 
+    
+        <br>
+        <br>
+        
+        <a href="login.html">
+            Login
+        </a>
+        <br>
+        <br>
+        <a href="registration.html">
+            Create an Account
+        </a>
+    </homepagedesc>
+
+    <script>
+        
+        
+        function createCard(data){
+            return `<div id=post-${data.id} class ="card"> \
+                            <img class="card-image" src="${data.thumbnail}"> \
+                            <div class="card-body"> \
+                                <p class ="card-title">${data.title}</p> \
+                                <p class = "card-text">${data.description}</p> \
+                                <a href="/users/imagePost/${data.id}" class = "anchor-buttons">Details</a>
+                            </div> \
+                        </div>`;             
+        }
+        
+        function runSearch (){
+            let searchTerm = document.getElementById('search').value;
+            let searchURL = 'http://localhost:3000/users/search/' + searchTerm;
+            fetch(searchURL)
+            .then((data)=>data.json())
+            .then((dataAsObject)=>{
+                console.log(dataAsObject);
+            })
+            .catch((err)=console.log("This failed."));
+            //change to popup error.
+        }
+
+       document.getElementById('text-bar-icon').onclick = runSearch;
+        
+        </script>
+    </body>
+</html>

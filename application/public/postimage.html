@@ -1,0 +1,131 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <script defer src="/public/javascripts/frontendjs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>
+          <headerpostimage>
+            ▐ Post Image
+          <headerpostimage>
+        </h1>
+    </header>
+
+    <div class="topnav">
+      <a class="active" href="index">Home</a>
+      <a href="/about" id="about-button">About</a>
+      <a href="/login" id="login-button">Log In</a>
+      <a href="/registration" id="register-button">Register</a>
+      <a class="active" id="post-image">Upload</a>
+      <a href="/profile" id="profile-button">Profile</a>
+      <form class="search" method="POST">
+          <input type="text" placeholder="Search.." name="searchbar">
+          <div id="text-bar-icon">
+            <input type="button" id="clickSearch" onClick="runSearch()"> </input>  
+            <i id="sicon" class="fas fa-search nav-items"></i>
+        </div>
+      </form>
+    </div>
+    
+  <br>
+  <br>
+
+  <postimagedescription>
+    <h3>
+        Complete Form and Submit to Post Image
+    </h3>
+  </postimagedescription> 
+    <postimagebox>
+        <form 
+          id="post-image"
+          class="form-grid-postimage"
+          action="/users/createPost" 
+          method="POST"
+          enctype="multipart/form-data"
+          >
+               <!----  action="/users/postimage" -->
+        <fieldset>
+            <br />
+              <strong>
+                <title2>
+                    <label for="title">Title:</label>
+                </title2>
+              </strong>
+            
+            <input 
+                required
+                pattern="([a-zA-Z0-9])\w+"
+                id="post-title"
+                class="text-input post-input-title"
+                type="text"
+                name = "title"
+                required placeholder="Enter a Post Tile" />
+
+            <br />
+
+            <strong>
+              <postdesc>
+                <label for="description">Post Description:</label>
+              </postdesc>
+            </strong>
+
+            <input 
+                id="post-desc"
+                class="text-input post-input-desc"
+                type="text"
+                name="description"
+                required placeholder="Enter description" />
+            <br />
+            <br />
+
+            <strong>
+              <uploadimg>
+                <label for="image">Upload Image:</label>
+              </uploadimg>
+            </strong>
+
+            <input 
+                id="img-select"
+                class="text-input post-input-image"
+                type="file" 
+                name="uploadImage"
+                required placeholder="Upload" />
+            <br />
+            <br />
+
+            <input 
+                id="acceptableUse"
+                name="acceptableUse"
+                type="checkbox"  
+                value="Use"
+                />
+            <acceptuse>  
+              <label for="acceptableUse"> 
+                  I have read and accept the
+                  <a href="acceptableuse">
+                      Acceptable Use Policy
+                  </a>
+                  for uploading images. 
+              </label>
+            </acceptuse>
+            <br />
+            <br />
+
+        </fieldset>
+        <br />
+
+        <button id="uploadButton" class="post-submit form-button" type="submit">Upload</button>
+    </form>
+  </postimagebox>
+  <script>
+
+  </script>
+</body>
+</html>

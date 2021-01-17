@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <script defer src="/public/javascripts/frontendjs.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>
+          <headerabout>
+            ▐ Registration Form
+          </headerabout>
+        </h1>
+    </header>
+    <div class="topnav">
+      <a class="active" href="index">Home</a>
+      <a href="/about" id="about-button">About</a>
+      <a href="/login" id="login-button">Log In</a>
+      <a class="active" id="register-button">Register</a>
+      <a href="/postimage" id="upload-button">Upload</a>
+      <a href="/profile" id="profile-button">Profile</a>
+        <input type="text" placeholder="Search..">
+        <div id="text-bar-icon">
+          <input type="button" id="clickSearch" onClick="runSearch()"> </input>  
+          <i id="sicon" class="fas fa-search nav-items"></i>
+      </div>
+      </div>
+      
+    <br>
+    <br>
+
+      <createaccountbox>
+        <form 
+            class="form-grid-reg" 
+            action="/users/registration" 
+            method="POST" 
+            enctype="application/x-www-form-urlencoded">
+          <formtxt>
+            Please fill in the below fields to create an
+            account. 
+            <br />
+            <br />
+          </formtxt>
+          <fieldset>
+          <regfieldtext>
+              <br />
+              <strong>
+                <label id="lbusername" class="tags reg-lbl-uname" for="username">
+                    Username:
+                </label>
+              </strong>
+              
+              <input 
+                  required
+                  pattern="([a-zA-Z0-9])\w+"
+                  id="username"
+                  name="username"
+                  type="text" 
+                  required placeholder="Choose a username" />
+
+              <br />
+
+              <strong>
+                  <label id="lemail" class="tags reg-lbl-email" for="email">
+                      E-mail:
+                    </label>
+              </strong>
+              
+              <input 
+                  id="email"
+                  name="email"
+                  type="text" 
+                  required placeholder="Enter your e-mail" />
+
+
+              <br />
+
+              <strong>
+                <label id="lpassword" class="tags reg-lbl-password" ="password">
+                      Password:
+                    </label>
+              </strong>
+
+              <input 
+                  id="password"
+                  type="password" 
+                  name="password"
+                  required placeholder="Choose a password" />
+
+              <br />
+
+              <strong>
+                  <label for="password_confirm">Re-confirm Password:</label>
+              </strong>
+
+              <input 
+                  id="password_confirm"
+                  type="password" 
+                  name="password_confirm"
+                  required placeholder="Confirm your password" />
+              <br />
+              <br />
+            </regfieldtext>
+            <acceptuse>
+              <input 
+                  type="checkbox" 
+                  id="is13+" 
+                  name="is13+" 
+                  value="Age" />
+
+              <label for="is13+"> I am 13+ years of age</label>
+
+              <br />
+
+              <input 
+                  type="checkbox" 
+                  id="readTOS" 
+                  name="readTOS" 
+                  value="Read" />
+
+              <label for="readTOS"> 
+                  I accept the 
+                  <a href ="aa">
+                      TOS and privacy rules
+                  </a>
+              </label>
+            </acceptuse>
+
+            <br />
+            <br />
+        </fieldset>
+        <br />
+        <input type="submit" onsubmit="return validateRegistration()" value="Submit">
+    </form>
+  </createaccountbox>
+  
+  <script>
+    validateRegistration = () => {
+    let userInput = document.forms["login"]["username"].value;
+    let userPassword = document.forms["login"]["password"].value;
+    let userConfirmation = document.forms["login"]["password_confirm"].value;
+    let regex = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+
+    if(!regex.test(userPassword)){
+        window.alert("Password must be a combination of letters and numbers");
+        return false;
+    }
+
+    if(userPassword !== userConfirmation){
+        window.alert("Passwords do not match");
+        return false;
+    }   
+};
+  </script>
+</body>
+</html>

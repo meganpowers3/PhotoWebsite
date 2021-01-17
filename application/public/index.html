@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <script defer src="/public/javascripts/frontendjs.js"></script>
+    <title>Home Page</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <headerhomepage>
+                ▐ Welcome
+            </headerhomepage>
+        </h1>
+    </header>
+
+    <div class="topnav">
+        <a class="active" href="index">Home</a>
+        <a href="/about" id="about-button">About</a>
+        <a href="/login" id="login-button">Log In</a>
+        <a href="/registration" id="register-button">Register</a>
+        <a href="/postimage" id="upload-button">Upload</a>
+        <a href="/profile" id="profile-button">Profile</a>
+        <input id="search" name="search-text" type="text" method="POST" />
+        <div id="text-bar-icon">
+            <input type="button" id="clickSearch" onClick="runSearch()"> </input>  
+            <i id="sicon" class="fas fa-search nav-items"></i>
+        </div>
+        </div>
+      
+    <br>
+    <br>
+
+    <div id="main-results"> 
+    
+        <a id="results"></a>
+
+    </div>
+  
+    <div id="main-content"> 
+    
+    </div>
+
+
+    <script>
+        function createCard(data){
+            return `<div id=post-${data.id} class ="card"> \
+                            <img class="card-image" src="${data.thumbnail}"> \
+                            <div class="card-body" id="card-body-id"> \
+                                <p class ="card-title" id="card-font">${data.title}</p> \
+                                <p class = "card-text" id="card-body-text">${data.description}</p> \
+                                <a href="/users/imagePost/${data.id}" id="link-id" class = "anchor-buttons">Details</a> \
+                            </div> \
+                        </div>`;             
+        }
+
+        function runSearch (){
+            let searchTerm = document.getElementById('search').value;
+            let searchURL = 'http://localhost:3000/users/search/' + searchTerm;
+            fetch(searchURL)
+            .then((data)=>data.json())
+            .then((dataAsObject)=>{
+                let _html = "";
+                dataAsObject.forEach((post) =>{
+                    _html += createCard(post);
+                })
+                document.getElementById('main-content').innerHTML = _html;
+                document.getElementById('results').textContent = "Search results";
+            })
+            .catch((err)=document.getElementById('results').textContent = "No results found.");
+        }
+
+       document.getElementById('text-bar-icon').onclick = runSearch;
+
+            fetch('http://localhost:3000/users/getRecentPosts/')
+            .then((data)=>data.json())
+            .then((dataAsObject)=>{
+                let _html = "";
+                dataAsObject.forEach((post) =>{
+                    _html += createCard(post);
+                })
+                document.getElementById('main-content').innerHTML = _html;
+            })
+            .catch((err)= document.getElementById("Unable to be fetched"));
+
+    </script>
+
+
+</body>
+</html>

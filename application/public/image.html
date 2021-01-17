@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="/public/javascripts/frontendjs.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>
+            <headerimage>
+                ▐ Image 
+            </headerimage>
+        </h1>
+    </header>
+
+    <div class="topnav">
+          <a href="index" id="home-button">Home</a>
+        <a href="/about" id="about-button">About</a>
+        <a href="/login" id="login-button">Log In</a>
+        <a href="/registration" id="register-button">Register</a>
+        <a href="/postimage" id="upload-button">Upload</a>
+        <a href="/profile" id="profile-button">Profile</a>
+        <input id="search" name="search-text" type="text" method="POST" />
+        <div id="text-bar-icon">
+            <input type="button" id="clickSearch" onClick="runSearch()"> </input>  
+            <i id="sicon" class="fas fa-search nav-items"></i>
+        </div>
+        </div>
+  
+    <strong>
+        <h1>
+          <headerpostimage>
+              View Image  
+          </headerpostimage>      
+        </h1>
+      </strong>
+
+    <div id="post-container">
+        <img id="image-post-image" src="">
+        <div id="info-message-grid">
+            <div id="info">
+                <header id="image-post-title">
+                    <h2 id="image-post-title-text"></h2>
+                </header>
+                <div id="image-post-author" class="info-tags">n/a</div>
+                <div id="image-post-date" class="info-tags">n/a</div>
+                <div id="image-post-desc" class="info-tags">n/a</div>
+            </div>
+            <div id="messages">
+                <header id="comment-title">
+                    <h2>Comments</h2>
+                </header>
+                <div id="message-list">
+
+                </div>
+                <form 
+                    id="comment-form"
+                    class="form-grid-login"
+                    action="/users/comment"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
+                        <input 
+                            id="comment"
+                            name="comment"
+                            class="text-input post-input-title"
+                            type="text"
+                            required placeholder="Enter a Comment" />
+                     <br />
+                        <input type="submit" value="Submit">
+                    </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+  
+<div id="main-content"> 
+
+</div>
+
+
+    <script>
+        function buildMessage(msgData){ }
+        let url = document.URL.split('/');
+        let _id = url[url.length - 1];
+        let postURL = "http://localhost:3000/users/getPostsById/" + _id;
+        fetch(postURL)
+        .then((data)=>data.json())
+        .then((dataAsObject)=>{
+            console.log(dataAsObject);
+            
+            document.getElementById('image-post-title-text').textContent = dataAsObject.title;
+            document.getElementById('image-post-author').textContent = dataAsObject.username;
+            document.getElementById('image-post-date').textContent = dataAsObject.created;
+            document.getElementById('image-post-desc').textContent = dataAsObject.description;
+            document.getElementById('image-post-image').setAttribute('src', `/${dataAsObject.photopath}`);
+        })
+        .catch((err)=console.log("error in retrieving data"));
+
+        function createComment(data){
+            return `<div id=post-${data.id} class ="card"> \
+                            <div class="card-body" id="card-body-id"> \
+                                <p class ="card-title" id="card-font">${data.comment}</p> \
+                            </div> \
+                        </div>`;             
+        }
+
+        fetch('http://localhost:3000/users/getComments/')
+            .then((data)=>data.json())
+            .then((dataAsObject)=>{
+                let _html = "";
+                dataAsObject.forEach((post) =>{
+                    _html += createComment(post);
+                })
+                document.getElementById('main-content').innerHTML = _html;
+            })
+            .catch((err)= document.getElementById("Unable to be fetched"));
+
+    </script>
+    </body>
+</html>
